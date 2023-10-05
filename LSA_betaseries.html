@@ -2,13 +2,32 @@
 <html>
 <head>
     <title>Running LSA Betaseries GLM</title>
+     <style>
+        body {
+            max-width: 800px;
+            margin: 0 auto; /* Center the content horizontally */
+            padding: 20px; /* Optional padding for better readability */
+        }
+    </style>
 
 </head>
 <body>
-    <h1>This page explains how to set up LSA</h1>
-    <p>This is the content of my new page.</p>
-
-    Example MATLAB code:
+    <h1>Setting up your GLM</h1>
+    <p>
+        If you know how to run your standard mass-univariate GLM, then this step is going to be a breeze! Here, I assume you have finished preprocessing your data and prepared it for the GLM step. You need the following information: <br>
+    </p>
+    <ul>
+        <li>Onsets: To be organized in a .mat file in a single vector such that every trial appears in its own column. See example here: XXXX. 
+            The duration of your trials (e.g., boxcar or delta) depends on your specific experimental design. SPM also requires column names, these are arbitrary (I do trial_0001 ... trial_N) </li>
+        <li>Regressors: Your 6 realignment parameters concatenated into a single session and saved into a .txt file. 
+            DO NOT include spike regressors!! The inclusion of spike regressors leads to highly outlying parameter estimates.</li>
+        <li>Scans: Preprocessed fMRI data in a .nii format. The fNIM lab has typically used unsmoothed data, however, we have recently made the switch to smoothed data as we dropped to 2 mm isotropic voxels</li>
+    </ul>
+    <p>
+        Once you specify your GLM SPM.mat, you will want to apply spm_fmri_concatenate() to model session means. Only then you can estimate your model. This is the same approach as the standard GLM! <br><br>
+        I share an example a MATLAB code below. I use settings and subject info files to easily access experiment-specific information in my pipeline. Find an example of a settings file *here*, and an info file *here*.
+    </p>
+    
     <script src="https://gist.github.com/SabinaSrokova/5fd5f001265418d3909b54081ab27176.js"></script>
   
 </body>
