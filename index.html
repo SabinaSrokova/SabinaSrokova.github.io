@@ -2,8 +2,12 @@
 <html>
 <body>
 <h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages!!!!</p>
-
+<p>I'm hosted with GitHub Pages!</p>
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
 
 </body>
 </html>
