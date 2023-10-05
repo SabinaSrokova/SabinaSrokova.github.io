@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages!!!</p>
 
-<pre>
+<head>
+    <!-- Include Prism.js CSS (choose a theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+
+    <!-- Include Prism.js core and the language extension for MATLAB -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-matlab.min.js"></script>
+</head>
+
+<body>
+    <h1>Hello World</h1>
+    <p>I'm hosted with GitHub Pages!!!</p>
+
+    <pre>
     <code class="language-matlab">
-        % Your MATLAB code here
-        fprintf('Hello, MATLAB!\n');
+        
+        clear; clc;
+        % Run settings file and load SPM
+        run(fullfile('Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_scripts\fmri99_settings.m'));
+        dirs = settings.dirs;
+        spm fmri
+        
     </code>
 </pre>
 
 </body>
+
 </html>
