@@ -8,112 +8,137 @@
             margin: 0 auto; /* Center the content horizontally */
             padding: 20px; /* Optional padding for better readability */
         }
+         table, th, td {
+              border: 1px solid black;
+        }
     </style>
 
 </head>
 <body>
 
-   <h2>Example of a mat file</h2>
-    <table>
-        <tr>
-            <th>beta_file</th>
-            <td>category</td>
-            <td>subcat</td>
-            <td>run</td>
-            <td>vivid_resp</td>
-            <td>test_idx</td>
-            <td>mem_bin</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0001.nii&#39;</th>
-            <td>&#39;filler&#39;</td>
-            <td>&#39;filler&#39;</td>
-            <td>1</td>
-            <td>&#39;not_vivid&#39;</td>
-            <td>0</td>
-            <td>&#39;none&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0002.nii&#39;</th>
-            <td>&#39;scene&#39;</td>
-            <td>&#39;outdoor&#39;</td>
-            <td>1</td>
-            <td>&#39;somewhat&#39;</td>
-            <td>40</td>
-            <td>&#39;source_dk&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0003.nii&#39;</th>
-            <td>&#39;scene&#39;</td>
-            <td>&#39;outdoor&#39;</td>
-            <td>1</td>
-            <td>&#39;very_vivid&#39;</td>
-            <td>72</td>
-            <td>&#39;source_correct&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0004.nii&#39;</th>
-            <td>&#39;object&#39;</td>
-            <td>&#39;natural&#39;</td>
-            <td>1</td>
-            <td>&#39;somewhat&#39;</td>
-            <td>83</td>
-            <td>&#39;item_miss&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0005.nii&#39;</th>
-            <td>&#39;object&#39;</td>
-            <td>&#39;natural&#39;</td>
-            <td>1</td>
-            <td>&#39;somewhat&#39;</td>
-            <td>64</td>
-            <td>&#39;source_dk&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0006.nii&#39;</th>
-            <td>&#39;object&#39;</td>
-            <td>&#39;manmade&#39;</td>
-            <td>1</td>
-            <td>&#39;very_vivid&#39;</td>
-            <td>95</td>
-            <td>&#39;source_correct&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0007.nii&#39;</th>
-            <td>&#39;scene&#39;</td>
-            <td>&#39;indoor&#39;</td>
-            <td>1</td>
-            <td>&#39;very_vivid&#39;</td>
-            <td>79</td>
-            <td>&#39;item_miss&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0008.nii&#39;</th>
-            <td>&#39;object&#39;</td>
-            <td>&#39;natural&#39;</td>
-            <td>1</td>
-            <td>&#39;not_vivid&#39;</td>
-            <td>70</td>
-            <td>&#39;source_correct&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0009.nii&#39;</th>
-            <td>&#39;scene&#39;</td>
-            <td>&#39;indoor&#39;</td>
-            <td>1</td>
-            <td>&#39;very_vivid&#39;</td>
-            <td>3</td>
-            <td>&#39;item_miss&#39;</td>
-        </tr>
-        <tr>
-            <th>&#39;Z:\ruggdata\UTD\EXPT2\FMR\fmri99\fmri99_analyses\study_trialwise\LSA_individual\fmri99_y22\beta_0010.nii&#39;</th>
-            <td>&#39;scene&#39;</td>
-            <td>&#39;indoor&#39;</td>
-            <td>1</td>
-            <td>&#39;somewhat&#39;</td>
-            <td>60</td>
-            <td>&#39;source_dk&#39;</td>
-        </tr>
-    </table>
+    <p>
+        Mat files are a great way of organizing your trialwise data. They allow you to maintain the paths to all your LSA beta files while storing all pertinent trial information. The file can store whatever you want! 
+        Trial responses at encoding or retrieval, RTs, event types, memory bins, etc. <br><br>
+        You may want to start off with a simple spreadsheet. For example, say you are working with encoding data, 
+        and you want your mat file to store paths to your betas, trial category, subcategory, scanner run (important for PSA!), encoding responses, index for the trial during memory test 
+        (allows you to efficiently load the corresponding beta from the test phase, if you scanned both), and the subsequent memory bin.<br><br>
+        You may end up with something like this! 
+     </p>
+        <table>
+    <tr>
+        <th>beta_file</th>
+        <td>category</td>
+        <td>subcat</td>
+        <td>run</td>
+        <td>vivid_resp</td>
+        <td>test_idx</td>
+        <td>mem_bin</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0001.nii&#39;</th>
+        <td>&#39;filler&#39;</td>
+        <td>&#39;filler&#39;</td>
+        <td>1</td>
+        <td>&#39;not_vivid&#39;</td>
+        <td>0</td>
+        <td>&#39;none&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0002.nii&#39;</th>
+        <td>&#39;scene&#39;</td>
+        <td>&#39;outdoor&#39;</td>
+        <td>1</td>
+        <td>&#39;somewhat&#39;</td>
+        <td>40</td>
+        <td>&#39;source_dk&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0003.nii&#39;</th>
+        <td>&#39;scene&#39;</td>
+        <td>&#39;outdoor&#39;</td>
+        <td>1</td>
+        <td>&#39;very_vivid&#39;</td>
+        <td>72</td>
+        <td>&#39;source_correct&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0004.nii&#39;</th>
+        <td>&#39;object&#39;</td>
+        <td>&#39;natural&#39;</td>
+        <td>1</td>
+        <td>&#39;somewhat&#39;</td>
+        <td>83</td>
+        <td>&#39;item_miss&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0005.nii&#39;</th>
+        <td>&#39;object&#39;</td>
+        <td>&#39;natural&#39;</td>
+        <td>1</td>
+        <td>&#39;somewhat&#39;</td>
+        <td>64</td>
+        <td>&#39;source_dk&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0006.nii&#39;</th>
+        <td>&#39;object&#39;</td>
+        <td>&#39;manmade&#39;</td>
+        <td>1</td>
+        <td>&#39;very_vivid&#39;</td>
+        <td>95</td>
+        <td>&#39;source_correct&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0007.nii&#39;</th>
+        <td>&#39;scene&#39;</td>
+        <td>&#39;indoor&#39;</td>
+        <td>1</td>
+        <td>&#39;very_vivid&#39;</td>
+        <td>79</td>
+        <td>&#39;item_miss&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0008.nii&#39;</th>
+        <td>&#39;object&#39;</td>
+        <td>&#39;natural&#39;</td>
+        <td>1</td>
+        <td>&#39;not_vivid&#39;</td>
+        <td>70</td>
+        <td>&#39;source_correct&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0009.nii&#39;</th>
+        <td>&#39;scene&#39;</td>
+        <td>&#39;indoor&#39;</td>
+        <td>1</td>
+        <td>&#39;very_vivid&#39;</td>
+        <td>3</td>
+        <td>&#39;item_miss&#39;</td>
+    </tr>
+    <tr>
+        <th>Z:\...full_path_here...\fmri99_y22\beta_0010.nii&#39;</th>
+        <td>&#39;scene&#39;</td>
+        <td>&#39;indoor&#39;</td>
+        <td>1</td>
+        <td>&#39;somewhat&#39;</td>
+        <td>60</td>
+        <td>&#39;source_dk&#39;</td>
+    </tr>
+</table>
+
+
+    <p>
+        The way you set this up is entirely up to you. You can work with your behavioral data and create a pipeline in excel if you wish. I, of course, like to write scripts. 
+        These are largely experiment-specific, and the way they are set up will vary. So, if automating these in matlab is not your cup of tea, excel is definitely an option. 
+        <br><br>
+        Once you do create your spreadsheet in excel, you will want to convert the data into a mat file. 
+        The reason for this is that you will want to store your extracted data, your mean betas, or even your PSA correlations in this file. 
+        It is what makes mat files more powerful than standard spreadsheets - You can store the parameters for every individual voxel of all your ROIs within a single cell! 
+        This will allow you to run your analyses very efficiently. Here is an example of a mat file that has undergone some univariate and PSA analyses (it stores voxelwise betas, mean betas, and PSA correlations).
+        <br><br>
+        Lastly, here is an example of a matlab script which creates a clean mat file (akin to the one illustrated above). It uses csv spreadsheets generated by psychopy.
+    </p>
+
+    
 </body>
 </html>
