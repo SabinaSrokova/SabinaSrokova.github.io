@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Defining ROIs</title>
+    <style>
+        body {
+            max-width: 800px;
+            margin: 0 auto; /* Center the content horizontally */
+            padding: 20px; /* Optional padding for better readability */
+        }
+        .link-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .left-link {
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Defining Regions of interest</h1>
+    <p> 
+        Although defining ROIs is not at all unique to trialwise analyses, I decided to share a guide on this anyway. Primary reason being that the standard "volume of interest" 
+        approach, which has been commonly employed in the fNIM lab, will not work well with the LSA. The best way to extract parameter estimates from your LSA data is to use a binary .nii mask,  
+        and this mask is best used when loaded in MATLAB as a logical matrix (more on this on the next page). Defining ROIs is not at all a complicated task, but I hope the information below 
+        can be helpful to the students who are completely new to fMRI analysis.
+    </p>
+    <br>
+    <h2>Anatomical labels and univariate activity</h2>
+    <p> 
+        The main approach I have followed over the years is to define ROIs as a conjunction between univariate activity and a set of masks provided by an anatomical atlas. The atlas I typically 
+        use is Neuromorphometrics (<a href="https://www.neuromorphometrics.com/">info here</a>), primarily because it is available as a masking option in SPM (which also makes it super easy to use). 
+        The steps are super simple: 
+    </p>
+    <br>
+    <ul>
+        <li>Select a contrast from a second-level GLM. For example, if you are interested in the Parahippocampal place area (PPA), you may want to pick a scene > object contrast.</li>
+        <li>Apply masking; select "Atlas".</li>
+        <li>When prompted to pick a file, select "labels_Neuromorphometrics.nii,1".</li>
+        <li>You will be prompted to pick labels from the atlas. If you are interested in the PPA, you may want to pick the fusiform and parahippocampal gyri 
+            (and make sure to hold "shift" if you want to select more than 1 label!). If you want to compare left and right hemisphere, you will want to repeat these steps for the left and right labels separately.</li>
+        <li>Nature of mask: inclusive</li>
+        <li>p value adjustment to control: This is experiment specific. If you do p = 1, you will obtain all voxels that exist in the anatomical labels you selected. 
+            If you do p < 0.05 (FWE), then you will obtain only those voxels that survive that threshold at a whole-brain level. </li>
+        <li>Extent threshold: you can keep this at zero. However, be aware that, hypothetically speaking, if you have two non-continuous clusters within the labels you selected, 
+            then your ROI may include two independent cortical regions. Adjust accordingly if SPM returns more than one cluster.</li>
+        <li>SPM will now generate your output. If it looks as expected, click "save..." under Display and save the cluster as a binary mask.</li>
+    </ul>
+    <br>
+    <p>
+        Of course, if you don't want to use anatomical labels (i.e., you do not want to exclude voxels outside of the specified anatomical regions), then you can use the save button to save your clusters. 
+        You may just need to play with the thresholding a bit if your cluster is continuous with what may be considered a separate functional area.
+    </p>
+    <br>
+    <p>
+        The finished product:
+    </p>
+    <img src="examples/ROI_example.png" alt="SPM output">
+    <br>
+
+    <h2>I want a sphere / cube / etc ROI, centered around a peak voxel...</h2>
+    <p> 
+        There are a few ways you can create a spherical binary mask. The simplest way to do this is to create a VOI in SPM as we normally would 
+        (move marker to the peak voxel of whatever contrast/cluster you have chosen > multivariate > eigenvariate > "don't adjust" > specify sphere radius). 
+        You can then use the following function to convert the VOI output it to a binary .nii mask. Just ensure that your version reflects the dimensions of your data.
+    </p>
+    <script src="https://gist.github.com/SabinaSrokova/aa50129653af5278f25b93da87f4fb46.js"></script>
+
+    <div class="link-container">
+        <a class="left-link" href="index.html">Return to Menu</a>
+        <a href="pages/extract_data.html">Continue to: Extracting trialwise data</a>
+      </div>
+</body>
+
+
+</html>
