@@ -74,11 +74,31 @@
     </p>
     <script src="https://gist.github.com/SabinaSrokova/aa50129653af5278f25b93da87f4fb46.js"></script>
 
-    <div class="link-container">
-        <a class="left-link" href="index.html">Return to Menu</a>
-        <a href="pages/extract_data.html">Continue to: Extracting trialwise data</a>
-      </div>
-</body>
+    <h2>Making sure your analysis is not circular</h2>
+    <p>
+        Imagine you are interested in analyzing the magnitude of scene-selectivity in the PPA in younger and older adults. Computing scene-selectivity in a region that was defined using a scene-selective contrast 
+        in the same exact dataset will result in a <a href="https://en.wikipedia.org/wiki/Circular_analysis">circular analysis</a>(thus artificually inflating the statistical strength of the outcome; 
+        also called "double dipping"). One option is to use a contrast from a 
+        completely different dataset, or, if you collected one, a functional localizer task. 
+    </p>
+    <br>
+    <p>
+        An alternative approach which ensures that ROIs are selected independently of the to-be-analyzed data is to use the <strong>"leave-one-pair-out" method</strong>. With this approach, yoked younger & older adult pairs 
+        are iteratively left out of the second-level GLMs and the ROIs of a given pair are defined using the data of the remainder of the sample. 
+        So, if you have 24 subjects in each age group, you will need to run 24 GLM analyses, and repeat the ROI process for each. 
+    </p>
+    <br>
+    <h2>Borrowing an ROI from a different dataset</h2>
+    <p>
+        The fNIM lab does not have a shortage of independent fMRI datasets. However, the spatial resolution at which the lab collects fMRI data has continously changed over the years.
+        If you use a binary mask from a dataset acquired at a resolution that differs from the to-be-analyzed dataset, you will need to resample the binary file. A very simple way to do this is to use SPM's 
+        <strong>"coregister - reslice"</strong> routine in the GUI. All you need to do is select your space defining image (such as the EPI sample-specific template of the to-be-analyzed data), and the path to the ROI mask.
+    </p>
 
+    <div class="link-container">
+        <a class="left-link" href="https://sabinasrokova.github.io/">Return to Menu</a>
+        <a href="pages/extract_data.html">Continue to: Extracting trialwise data</a>
+    </div>
+</body>
 
 </html>
