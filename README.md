@@ -1,0 +1,1 @@
+This page provides a detailed tutorial on setting-up, modeling, organizing, and analyzing LSA data. The tutorial is tailored to the members of the fNIM Lab at the UT Dallas, particularly those who have very little experience analyzing fMRI data.
