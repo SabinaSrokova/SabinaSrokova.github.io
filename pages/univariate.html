@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Univariate analysis</title>
+    <style>
+        body {
+            max-width: 800px;
+            margin: 0 auto; /* Center the content horizontally */
+            padding: 20px; /* Optional padding for better readability */
+        }
+        .link-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .left-link {
+            margin-right: auto;
+        }
+
+        .responsive-image {
+            max-width: 800px; 
+            height: auto; /* Maintain the aspect ratio */
+          }
+    </style>
+</head>
+
+<body>
+    <h1>Trialwise univariate analysis</h1>
+    <p>
+        Once you've extracted your parameter estimates, you are ready to start running univariate analyses. The logic is identical to standard univariate contrasts. 
+        Imagine you are working with study phase data, and you are trying to figure out whether your region of interest (ROI) exhibits a subsequent memory effect (SME; was this trial remembered or forgotten?). 
+        To operationalize an "SME index", you will need to compute the ROI's average across-trial beta for encoding trials which went on to be subsequently remembered, 
+        minus the average beta for the trials which went on to be forgotten (akin to running a "remember > forgotten" contrast). 
+        <br>
+        Of course, the main difference between the typical approach (sometimes called "least-squares-unitary"; LSU) and the LSA/LSS is that you obtain betas for each individual trial.
+        Therefore, unlike the LSU, the trialwise approach allows you to compute the trial-by-trial variability of parameter estimates in each condition 
+        (you cannot do this in the LSU, obviously, because each condition provides only one beta). As a result, you can (and should) divide the difference between A and B by their
+        pooled standard deviation. (Dividing two means by pooled SD sound familiar? That's because it's the <a href="https://en.wikiversity.org/wiki/Cohen%27s_d">Cohen's D</a>, an effect size for the standardized difference between two means).
+    </p>
+    <img src="https://raw.githubusercontent.com/SabinaSrokova/SabinaSrokova.github.io/main/examples/formula.PNG" alt="Univariate index formula" class="responsive-image">
+
+    <script src="https://gist.github.com/SabinaSrokova/b36adcac28270de24195b6624e396170.js"></script>
+
+    <p>
+        Scaling the difference by pooled SD is particularly important in aging studies. Changes in cerebrovascular structure decrease the elasticity of blood vessels, 
+        which means that the range of vascular reactivity decreases in older age. Consequently, because fMRI measures blood flow, obtaining a smaller difference between conditions A and B 
+        may not actually mean that the difference in neuronal firing is smaller. Thanks to the scaling function, the "SME index" mentioned above becomes insensitive to individual or group
+        differences in the gain of the hemodynamic response function which mediates the neural and fMRI BOLD activity. (However, while the scaling function accounts for age differences in the gain of the HRF, 
+        it does not account for potential differences in the variability or shape of the HRF.)
+        <br>
+        The code below (and the function above) is all that is needed to compute a univariate index. The way you index your trials is entirely up to you, and all pertinent information is drawn from your mat files.
+        Here, I show an example of what we (in the fNIM lab) call the "differentiation index". In the parahippocampal place area, I compute the difference between mean selectivity for scenes minus objects 
+        (and vice-versa in the object-selective lateral occipital complex). This pipeline can be used to perform whatever contrast you need: differentiation (selectivity), reinstatement, SME, etc... 
+        The sky (and your experimental design ;) ) is your limit...
+    </p>
+
+    <script src="https://gist.github.com/SabinaSrokova/42c3e05e3e9edd535aba364bc56603b9.js"></script>
+
+    <div class="link-container">
+        <a class="left-link" href="https://sabinasrokova.github.io/">Return to Menu</a>
+        <a href="psa.html">Continue to: Multivoxel pattern similarity analysis</a>
+    </div>
+</body>
+
+</html>
