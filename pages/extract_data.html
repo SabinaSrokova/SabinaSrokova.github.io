@@ -33,14 +33,15 @@
     </p>
 
     <ul>
-        <li>Locate and load the binary masks which you created during the previous step; use the function niftiread() 
-            [Note that you need access to the Image processing toolbox. UT Dallas has a license, and it should be a part of your MATLAB installation. If it is not, email cvltech@utdallas.edu.
-            Although, spm_read_vols(spm_vol(nii_file)) works as well, niftiread is MUCH faster]. 
-            The logical argument will convert the binary matrix such that each voxel is treated as TRUE/FALSE. All voxels that exist in the ROI are 1 = "TRUE".</li>
-        <li>Specify and load subject information, such as the mat file which contains all paths to the subject's trialwise betas. In the example below, the mat file will load the variable "study_data".</li>
+        <li>Locate and load the binary masks which you created during the previous step; use the function niftiread() <br>
+            [Note that you need access to the Image processing toolbox in MATLAB. UT Dallas has a license, and it should be a part of your MATLAB installation. If it is not, email cvltech@utdallas.edu.
+            spm_read_vols(spm_vol(nii_file)) works as well, but niftiread is MUCH faster]. <br>
+            The logical() argument will convert the binary matrix such that each voxel is labeled as TRUE/FALSE. All voxels that exist in the ROI are 1 = "TRUE".</li>
+        <li>Specify and load subject files such as the mat file which contains all paths to the subject's trialwise betas. In the example below, the mat file will load the variable "study_data".</li>
         <li>Loop through all trials, load the beta .nii file for each trial with niftiread() as you go.</li>
-        <li>Once the beta for a given trial is loaded (as a matrix), loop through ROIs and use the logical ROI matrix (corresponding to each ROI) to select only those voxels that were labeled 1 / TRUE, such as: beta_map(curMask); 
-            You should save the output in your mat file as a new structure (I call mine extracted_data). This field will be used in your PSA analyses and it contains the betas of all voxels in your ROI.
+        <li>Once the beta for a given trial is loaded as a matrix, loop through ROIs and use the logical matrix corresponding with each ROI to select only those voxels that were labeled 1 / TRUE, 
+            [beta_map(curMask);] <br>
+            You should save the output in your mat file as a new structure (I call mine extracted_data). This field will be used in your PSA analyses and it contains the betas of all voxels in your ROI.<br>
             You may also save the across-voxel mean beta value, you can use this value in univariate analyses.</li>
         <li>Finish going through trials and subjects, save the subject's mat file as you go.</li>
     </ul>
