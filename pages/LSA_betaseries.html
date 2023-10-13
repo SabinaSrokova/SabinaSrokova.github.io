@@ -25,15 +25,27 @@
         If you know how to run your standard mass-univariate GLM, then this step is going to be a breeze! Here, I assume you have finished preprocessing your data and prepared it for the GLM step. You need the following information: <br>
     </p>
     <ul>
-        <li>Onsets: To be organized in a .mat file in a single vector such that every trial appears in its own column. See example here: XXXX. 
-            The duration of your trials (e.g., boxcar or delta) depends on your specific experimental design. SPM also requires column names, these are arbitrary (I do trial_0001 ... trial_N) </li>
-        <li>Regressors: Your 6 realignment parameters concatenated into a single session and saved into a .txt file. 
-            DO NOT include spike regressors!! The inclusion of spike regressors leads to highly outlying parameter estimates.</li>
-        <li>Scans: Preprocessed fMRI data in a .nii format. The fNIM lab has typically used unsmoothed data, however, we have recently made the switch to smoothed data as we dropped to 2 mm isotropic voxels</li>
+        <li><strong>Onsets:</strong> To be organized in a .mat file in a single vector such that every trial appears in its own column. 
+            See example <a href="https://github.com/SabinaSrokova/SabinaSrokova.github.io/blob/main/examples/fmri99_y22_study_trialwise_onsets.mat">here</a>. <br>
+            The duration of your trials (e.g., boxcar or delta) depends on your specific experimental design. SPM also requires column names, these are arbitrary (I name them trial_0001 ... trial_N) </li>
+        <li><strong>Regressors:</strong> Your 6 realignment parameters concatenated into a single session and saved into a .txt file. <br>
+            DO NOT include spike regressors!! The inclusion of spike regressors leads to highly outlying parameter estimates. I will update this page with a way of dealing with outliers through Z-score filtering.</li>
+        <li><strong>Scans:</strong> Preprocessed fMRI data in a .nii format. The fNIM lab has typically used unsmoothed data, however, we have recently made the switch to smoothed data as we dropped to 2 mm isotropic voxels</li>
     </ul>
     <p>
-        Once you specify your GLM SPM.mat, you will want to apply spm_fmri_concatenate() to model session means. Only then you can estimate your model. This is the same approach as the standard GLM! <br><br>
-        I share an example a MATLAB code below. I use settings and subject info files to easily access experiment-specific information in my pipeline. Find an example of a settings file *here*, and an info file *here*.
+        As with standard GLM in SPM, you will first specify your model. The settings are listed in the script below, and they are pretty much identical to the standard approach. The only difference worth noting is 
+        that you do not want to model derivatives.
+        <br>
+        After you specified the model, you will want to apply spm_fmri_concatenate() to model session means. Estimate your model once that is done. Once again, this is the same as the standard GLM <br><br>
+        I share an example of a MATLAB code below. 
+        <br>
+        You will see that I call a script called "settings" to load all pertinent directories and experiment-specific information 
+        (it also prompts subject selection if you want to let your GLMs run through all subjects. It's great if you want to nap while MATLAB does all your work for you ;) ).
+        An example of a settings file is <a href="https://github.com/SabinaSrokova/SabinaSrokova.github.io/blob/main/examples/settings.m">here</a>. 
+        <br>
+        A subject info file is another file that you will see me loading in every single MATLAB script. 
+        This file, one per each subject, stores the individual's preprocessed data, motion files, onsets, etc... An example can be found 
+        <a href="https://github.com/SabinaSrokova/SabinaSrokova.github.io/blob/main/examples/fmri99_y22_info.mat">here</a>.<br> 
     </p>
     
     <script src="https://gist.github.com/SabinaSrokova/5fd5f001265418d3909b54081ab27176.js"></script>

@@ -66,10 +66,18 @@
             you can simply use a group mask that was generated during the 2nd level step (assuming you used smoothed data on the mass-univariate analysis...). 
         </li>
     </ul>
-
     <script src="https://gist.github.com/SabinaSrokova/209da74cf0267bbe713bddaaaabaa16f.js"></script>
 
-    <br>
+    <p>
+        A comparision between an unsmoothed vs smoothed group mask is illustrated below. It is also important to be mindful of *where* your dropout occurs. For example, in this study, 
+        you would have a hard time extracting group-level data from the striatum ... 
+        This is unfortunately typical and unavoidable in aging studies (iron deposition leading to signal loss). It is just something to be aware of.
+        Luckily, this does not mean that all older adults are missing these voxels. More likely, it is just one or two of your subjects. If your region of interest ends up being
+        in the striatum, you will need to identify and exclude these few older adults and recreate your group mask without them.
+    </p>
+
+    <img src="https://raw.githubusercontent.com/SabinaSrokova/SabinaSrokova.github.io/main/examples/group%20mask.PNG" alt="Group mask comparison" class="responsive-image">
+
 
     <div class="link-container">
         <a class="left-link" href="https://sabinasrokova.github.io/">Return to Menu</a>

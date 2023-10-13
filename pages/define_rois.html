@@ -28,25 +28,24 @@
 <body>
     <h1>Defining Regions of interest</h1>
     <p> 
-        Although defining ROIs is not at all unique to trialwise analyses, I decided to share a guide on this anyway. Primary reason being that the standard "volume of interest" 
+        Although defining ROIs is not at all unique to trialwise analyses, I decided to share a guide on this anyway. The primary reason for this is that the standard "volume of interest" 
         approach, which has been commonly employed in the fNIM lab, will not work well with the LSA. The best way to extract parameter estimates from your LSA data is to use a binary .nii mask,  
         and this mask is best used when loaded in MATLAB as a logical matrix (more on this on the next page). Defining ROIs is not at all a complicated task, but I hope the information below 
         can be helpful to the students who are completely new to fMRI analysis.
     </p>
-    <br>
+
     <h2>Anatomical labels and univariate activity</h2>
     <p> 
         The main approach I have followed over the years is to define ROIs as a conjunction between univariate activity and a set of masks provided by an anatomical atlas. The atlas I typically 
         use is Neuromorphometrics (<a href="https://www.neuromorphometrics.com/">info here</a>), primarily because it is available as a masking option in SPM (which also makes it super easy to use). 
-        The steps are super simple: 
+        The steps are as follows: 
     </p>
-    <br>
     <ul>
-        <li>Select a contrast from a second-level GLM. For example, if you are interested in the Parahippocampal place area (PPA), you may want to pick a scene > object contrast.</li>
+        <li>Select a contrast from a second-level GLM. For example, if you are interested in the Parahippocampal place area (PPA), you will want to pick something like a scene > object contrast.</li>
         <li>Apply masking; select "Atlas".</li>
         <li>When prompted to pick a file, select "labels_Neuromorphometrics.nii,1".</li>
-        <li>You will be prompted to pick labels from the atlas. If you are interested in the PPA, you may want to pick the fusiform and parahippocampal gyri 
-            (and make sure to hold "shift" if you want to select more than 1 label!). If you want to compare left and right hemisphere, you will want to repeat these steps for the left and right labels separately.</li>
+        <li>You will then be prompted to pick labels from the atlas. If you are interested in the PPA, you may want to pick the fusiform and parahippocampal gyri 
+            (and make sure to hold "ctrl" if you want to select more than 1 label!). If you want to compare left and right hemisphere, you will want to repeat these steps for the left and right labels separately.</li>
         <li>Nature of mask: inclusive</li>
         <li>p value adjustment to control: This is experiment specific. If you do p = 1, you will obtain all voxels that exist in the anatomical labels you selected. 
             If you do p < 0.05 (FWE), then you will obtain only those voxels that survive that threshold at a whole-brain level. </li>
@@ -54,9 +53,8 @@
             then your ROI may include two independent cortical regions. Adjust accordingly if SPM returns more than one cluster.</li>
         <li>SPM will now generate your output. If it looks as expected, click "save..." under Display and save the cluster as a binary mask.</li>
     </ul>
-    <br>
     <p>
-        Of course, if you don't want to use anatomical labels (i.e., you do not want to exclude voxels outside of the specified anatomical regions), then you can use the save button to save your clusters. 
+        Of course, if you don't want to use anatomical labels (i.e., you do not want to exclude voxels outside of the specified anatomical regions), then you can also use the save button to save your clusters. 
         You may just need to play with the thresholding a bit if your cluster is continuous with what may be considered a separate functional area.
     </p>
     <br>
@@ -66,34 +64,34 @@
     <img src="https://raw.githubusercontent.com/SabinaSrokova/SabinaSrokova.github.io/60c8ae019c72c5b5a91dfa9ee6f1ddbe607f97d5/examples/ROI_example.png" alt="SPM output" class="responsive-image">
     <br>
 
+    <h2>Making sure your analysis is not circular</h2>
+    <p>
+        Imagine you are interested in analyzing the magnitude of scene-selectivity in the PPA in younger and older adults. Computing scene-selectivity in a region that was defined using a scene-selective contrast 
+        in the same exact dataset will result in a <a href="https://en.wikipedia.org/wiki/Circular_analysis">circular analysis</a> (thus artificually inflating the statistical strength of the outcome; 
+        also called "double dipping"). One option is to use a contrast from a completely different dataset, or, if you collected one, a functional localizer task. 
+    <br>
+        If you do not have an independent dataset or a localizer, not all is lost. An alternative approach which ensures that ROIs are selected independently of the to-be-analyzed data is to use the 
+        <strong>"leave-one-pair-out" method</strong>. With this approach, yoked younger & older adult pairs 
+        are iteratively left out of the second-level GLM. As a result, the ROIs of a given younger-older adult pair are defined using the data of the remainder of the sample. 
+        So, if you have 24 subjects in each age group, you will need to run 24 GLM analyses, and repeat the ROI process for each analysis. 
+    </p>
+    <h2>Using an ROI from a different dataset</h2>
+    <p>
+        The fNIM lab does not have a shortage of independent fMRI datasets. However, the spatial resolution at which the lab collects fMRI data has continously changed over the years.
+        If you use a binary mask from a dataset acquired at a resolution that differs from the to-be-analyzed dataset, you will need to resample the binary file. A very simple way to do this is to use SPM's 
+        <strong>"coregister - reslice"</strong> routine in the GUI. All you need to do is select your space defining image (such as the EPI sample-specific template of the to-be-analyzed data), 
+        and the path to the ROI mask. That's it!
+    </p>
+
     <h2>I want a sphere / cube / etc ROI, centered around a peak voxel...</h2>
     <p> 
         There are a few ways you can create a spherical binary mask. The simplest way to do this is to create a VOI in SPM as we normally would 
         (move marker to the peak voxel of whatever contrast/cluster you have chosen > multivariate > eigenvariate > "don't adjust" > specify sphere radius). 
-        You can then use the following function to convert the VOI output it to a binary .nii mask. Just ensure that your version reflects the dimensions of your data.
+        You can then use the MATLAB function below to convert the VOI output it to a binary .nii mask. Just ensure that your version reflects the dimensions of your data 
+        (and always look at the MNI coordinates of the output in mricron).
     </p>
-    <script src="https://gist.github.com/SabinaSrokova/aa50129653af5278f25b93da87f4fb46.js"></script>
 
-    <h2>Making sure your analysis is not circular</h2>
-    <p>
-        Imagine you are interested in analyzing the magnitude of scene-selectivity in the PPA in younger and older adults. Computing scene-selectivity in a region that was defined using a scene-selective contrast 
-        in the same exact dataset will result in a <a href="https://en.wikipedia.org/wiki/Circular_analysis">circular analysis</a>(thus artificually inflating the statistical strength of the outcome; 
-        also called "double dipping"). One option is to use a contrast from a 
-        completely different dataset, or, if you collected one, a functional localizer task. 
-    </p>
-    <br>
-    <p>
-        An alternative approach which ensures that ROIs are selected independently of the to-be-analyzed data is to use the <strong>"leave-one-pair-out" method</strong>. With this approach, yoked younger & older adult pairs 
-        are iteratively left out of the second-level GLMs and the ROIs of a given pair are defined using the data of the remainder of the sample. 
-        So, if you have 24 subjects in each age group, you will need to run 24 GLM analyses, and repeat the ROI process for each. 
-    </p>
-    <br>
-    <h2>Borrowing an ROI from a different dataset</h2>
-    <p>
-        The fNIM lab does not have a shortage of independent fMRI datasets. However, the spatial resolution at which the lab collects fMRI data has continously changed over the years.
-        If you use a binary mask from a dataset acquired at a resolution that differs from the to-be-analyzed dataset, you will need to resample the binary file. A very simple way to do this is to use SPM's 
-        <strong>"coregister - reslice"</strong> routine in the GUI. All you need to do is select your space defining image (such as the EPI sample-specific template of the to-be-analyzed data), and the path to the ROI mask.
-    </p>
+    <script src="https://gist.github.com/SabinaSrokova/aa50129653af5278f25b93da87f4fb46.js"></script>
 
     <div class="link-container">
         <a class="left-link" href="https://sabinasrokova.github.io/">Return to Menu</a>
